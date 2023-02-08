@@ -5,6 +5,8 @@ from django.contrib import messages
 from django.http import HttpResponse,JsonResponse
 import requests
 import json
+from .tubeA import tubeA
+from .tubeB import tubeB
 
 def main(request):
     # Make a GET request to the API
@@ -45,14 +47,29 @@ def treatment_page(request):
         'treatment_dose': str(data['Treatment Dose (in Joule)']),
     }
     if tube_name=="A":
-        print("Tube A")
+        #call tubeA function
+        try:
+            tubeA()
+            return redirect ("/treatment_complete/")
+        except:
+            print("error")
+            #redirect to main page
+            return redirect ("/")
+
+        
     elif tube_name=="B":
-        print("Tube B")
+        #call tubeB function
+        #tubeB()
+        print("tubeB")
     else:
         print("0")
         #redirect to main page
         return redirect("/")
-    return render(request, 'treatment.html')
+    return render(request, 'treatment.html',data)
+
+def treatment_complete(request):
+    return render(request, 'treatment_complete.html')
+
 
 
 
