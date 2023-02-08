@@ -1,2 +1,0 @@
-def tubeB():
-    print("tubeB")

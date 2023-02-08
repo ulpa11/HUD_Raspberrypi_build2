@@ -5,8 +5,8 @@ from django.contrib import messages
 from django.http import HttpResponse,JsonResponse
 import requests
 import json
-from .tubeA import tubeA
-from .tubeB import tubeB
+from .tubeA import process_tubeA
+from .tubeB import process_tubeB
 
 def main(request):
     # Make a GET request to the API
@@ -49,7 +49,7 @@ def treatment_page(request):
     if tube_name=="A":
         #call tubeA function
         try:
-            tubeA()
+            process_tubeA()
             return redirect ("/treatment_complete/")
         except:
             print("error")

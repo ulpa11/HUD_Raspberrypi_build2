@@ -36,23 +36,30 @@ headers = {
 }
 
 header2 = {"User-Agent": "/", "Content-Type": "application/json"}
-
+state = False
+doorStatus = False
+def button_callback(channel):
+    print("Button was pushed!")
+    state = True
 def process_tubeA():
-    state = False
-    doorStatus = False
-    # reading request
-    response = requests.get(url, headers=headers)
-    print(f"Response status code: {response.status_code}")
-    print(f"Response text: {response.text}")
 
-    # deserializing json
-    x = json.loads(response.text)
+    # reading request
+    x = requests.get(url, headers=headers)
+    print(x.status_code)
+    print(x.text)
+
+    # deserialising json
+    x = json.loads(x.text)
     p_id = x['Patient_ID']
-    print(f'Result: {x["Result"]}')
-    print(f'Patient Name: {x["Patient Name"]}')
-    print(f'Tube Name: {x["Tube Name"]}')
-    print(f'Patient ID: {x["Patient_ID"]}')
-    print(f'Treatement in Joule: {x["Treatment Dose (in Joule)"]}')
+    print('Result: ', x['Result'])
+    print('Patient Name: ', x['Patient Name'])
+    print('Tube Name: ', x['Tube Name'])
+    print('Patient ID: ', x['Patient_ID'])
+    print('Treatement in Joule: ', x['Treatment Dose (in Joule)'])
+
+                # BUTTON CONDITION
+    if (GPIO.input(19) == GPIO.LOW):
+            state = True
 
 
     while (state == True):
