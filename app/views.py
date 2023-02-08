@@ -53,7 +53,7 @@ def treatment_page(request):
         #call tubeA function
         try:
             process_tubeA()
-            return redirect ("/treatment_complete/")
+            return redirect("/treatment_complete/")
         except:
             print("error")
             #redirect to main page
@@ -64,7 +64,7 @@ def treatment_page(request):
         #call tubeB function
         try:
             process_tubeB()
-            return redirect ("/treatment_complete/")
+            return redirect("/treatment_complete/")
         except:
             print("error")
             #redirect to main page
@@ -75,7 +75,10 @@ def treatment_page(request):
         return redirect("/")
     return render(request, 'treatment.html',data)
 
+
 def treatment_complete(request):
+    if request.method=="GET":
+        return redirect("/")
     return render(request, 'treatment_complete.html')
 
 
