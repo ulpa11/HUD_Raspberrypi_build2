@@ -1,0 +1,104 @@
+{% load static%}
+<html>
+  <head>
+    <style>
+      .container {
+        background-image: url("{% static 'background.png' %}");
+        background-size: cover;
+        display: flex;
+        align-items: center;
+        height: 100vh;
+        position: relative;
+      }
+      .white-box {
+        width: 40%;
+        margin: auto;
+        background-color: white;
+        border-radius: 10px;
+        padding: 50px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+      .add-wifi-button {
+        position: absolute;
+        top: 40px;
+        right: 40px;
+        background-color: gray;
+        color: white;
+        padding: 10px 20px;
+        border-radius: 10px;
+        cursor: pointer;
+      }
+      .logo {
+        width: 100%;
+        height: auto;
+      }
+      .patient-details {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-top: 20px;
+      }
+      .patient-details h3 {
+        margin-bottom: 10px;
+      }
+      .patient-details p {
+        font-size: 20px;
+        margin-bottom: 20px;
+      }
+      .buttons {
+        display: flex;
+        justify-content: center;
+        margin-top: 20px;
+      }
+      .refresh-button,
+      .start-button {
+        width: 40%;
+        padding: 20px;
+        font-size: 20px;
+        border-radius: 10px;
+        margin-right: 10px;
+        cursor: pointer;
+      }
+      .refresh-button {
+        background-color: blue;
+        color: white;
+      }
+      .start-button {
+        background-color: green;
+        color: white;
+      }
+      @media (max-width: 600px) {
+        .white-box {
+          width: 80%;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <button class="add-wifi-button">Add Wi-Fi</button>
+      <div class="white-box">
+        <img src="{% static 'logo.png' %}" class="logo" />
+        <div class="patient-details">
+          <h3>Patient Name</h3>
+          <p>{{ patient_name }}</p>
+            <h3>Tube Type</h3>
+            <p>{{ tube_name }}</p>
+            <h3>Dose(Unit)</h3>
+            <p>{{treatment_dose}}</p>
+        </div>
+        <div class="buttons">
+              <form method="POST">
+                {% csrf_token %}
+                <button class='refresh-button' name="refresh-button" value="refresh-button">Refresh</button>
+                <button class="start-button" name="start-button" value="start-button">Start</button>
+              </form>
+        </div>
+    </div>
+    </div>
+    </body>
+    </html>
+
+
