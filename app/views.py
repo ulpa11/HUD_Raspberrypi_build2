@@ -10,6 +10,7 @@ from .tubeB import process_tubeB
 
 
 
+
 def main(request):
     # Make a GET request to the API
     url = 'https://cyberimpulses.com/MVRC_Phototherapy_Booth/process.php?action=patient_tube&user_id=1'
