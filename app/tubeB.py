@@ -38,12 +38,12 @@ headers = {
 header2 = {"User-Agent": "/", "Content-Type": "application/json"}
 
 def process_tubeB():
-    state = False
-    doorStatus = False
     def button_callback(channel):
         print("Button was pushed!")
         state = True
     # reading request
+    state = False
+    doorStatus = False
     x = requests.get(url, headers=headers)
     print(x.status_code)
     print(x.text)
