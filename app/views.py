@@ -8,6 +8,8 @@ import json
 from .tubeA import process_tubeA
 from .tubeB import process_tubeB
 
+
+
 def main(request):
     # Make a GET request to the API
     url = 'https://cyberimpulses.com/MVRC_Phototherapy_Booth/process.php?action=patient_tube&user_id=1'
@@ -59,8 +61,13 @@ def treatment_page(request):
         
     elif tube_name=="B":
         #call tubeB function
-        #tubeB()
-        print("tubeB")
+        try:
+            process_tubeB()
+            return redirect ("/treatment_complete/")
+        except:
+            print("error")
+            #redirect to main page
+            return redirect ("/")
     else:
         print("0")
         #redirect to main page
