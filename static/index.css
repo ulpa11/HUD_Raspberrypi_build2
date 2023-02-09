@@ -2,15 +2,15 @@
     text-align: left;
     font-family: Arial, sans-serif;
     margin: 5px;
-}
+} 
 .data{
     width: 65rem;
-    margin: 5rem 20rem 5rem;
+    margin: 3% 25%;
 }
 .logo{
     text-align: center;
     font-family: Arial, Helvetica, sans-serif;
-    padding-top: 30px;
+    padding-top: 30px; 
 }
 .backimg{
     height: 725px;
@@ -22,39 +22,38 @@
     background-color: rgb(218, 228, 244);
     height: 35rem;
     border:double rgb(99, 177, 251);
-    border-width: 2px;
-    width: 85rem;
+    border-width: 2px; 
+    width: 85rem; 
     margin: 5rem;
     position: absolute;
     z-index: 1;
 }
-.progressbar{
-    margin: 0rem 10rem 5rem;
-    background-color: rgb(99, 168, 246);
-    text-align: center;
-    height: 30px;
-}
+ 
 .last{
     text-align: center;
-
+    padding: 0%;
 }
 .middle{
     font-family: Arial, Helvetica, sans-serif;
-    margin: 10rem;
+    margin: 5%;
     text-align: center;
 }
 #fourthbtn{
-    margin: 0rem 35rem;
+    margin: 0% 44%;  
     height: 60px;
-    width: 220px;
-
+    width: 220px; 
+       
 }
 .btn{
     height: 60px;
     width: 220px;
     margin: 0px 110px;
 }
-
+.waiting{
+    height: 90px;
+    position: relative;
+    left: 48%;
+}
 .keyboard {
     position: absolute;
     left: 0%;
