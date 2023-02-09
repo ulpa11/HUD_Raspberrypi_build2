@@ -3,7 +3,7 @@
   <head>
     <style>
       .container {
-        background-image: url("{% static 'background.jpg' %}");
+        background-image: url("{% static 'background.png' %}");
         background-size: cover;
         display: flex;
         align-items: center;
@@ -78,7 +78,10 @@
   </head>
   <body>
     <div class="container">
-      <button class="add-wifi-button" name="add-wifi-button" value="add-wifi-button">Add Wi-Fi</button>
+      <form method="POST">
+        {% csrf_token %}
+        <button class="add-wifi-button" name="add-wifi-button" value="add-wifi-button">Add Wi-Fi</button>
+      </form>
       <div class="white-box">
         <img src="{% static 'logo.png' %}" class="logo" />
           <div class="patient-details">
@@ -91,6 +94,7 @@
           </div>
           <div class="buttons">
               <form method="POST"> 
+                {% csrf_token %}
                 <button id="refresh-button" name="refresh-button" value="refresh-button">Refresh</button>
                 <button id="start-button" name="start-button" value="start-button">Start</button>
               </form>
