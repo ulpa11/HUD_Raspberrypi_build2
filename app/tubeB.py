@@ -42,7 +42,7 @@ def process_tubeB():
         print("Button was pushed!")
         state = True
     # reading request
-    state = False
+    state = True
     doorStatus = False
     x = requests.get(url, headers=headers)
     print(x.status_code)
@@ -81,7 +81,7 @@ def process_tubeB():
         GPIO.output(24, GPIO.LOW)
 
         # calibrating input reading to millis
-        val = float(x['Treatment Dose (in Joule)']) / 510
+        val = float(x['Treatment Dose (in Joule)']) / 10000
 
         reading1 = []
         b = 0

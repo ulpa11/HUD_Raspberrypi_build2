@@ -43,7 +43,7 @@ def main(request):
                     try:
                         #process_tubeA()
                         print("Tube A")
-                        return redirect("/treatment_complete")
+                        return redirect("/treatment_complete/")
 
                     except:
                         return render(request, 'main.html', {'error_message': 'Internet connection not available. Please check your connection and try again.'})
@@ -51,22 +51,22 @@ def main(request):
                     try:
                         #process_tubeB()
                         print("Tube B")
-                        return redirect("/treatment_complete")
+                        return redirect("/treatment_complete/")
                         
                     except:
                         return render(request, 'main.html', {'error_message': 'Internet connection not available. Please check your connection and try again.'})
                 else:
                     return render(request, 'main.html', {'error_message': 'Internet connection not available. Please check your connection and try again.'})
-
             elif request.POST.get("add-wifi-button")=="add-wifi-button":
                 print("add wifi")
                 #redirect to add wifi page
-                return redirect("/add_wifi")
+                return redirect("/add_wifi/")
     return render(request, 'main.html', data)
 
 
 def treatment_complete(request):
-    return render(request, 'treatment_complete.html')
+    return render(request, 'treatment_complete_page.html')
+
 
 def add_wifi(request):
     if request.method=="POST":
@@ -94,6 +94,4 @@ def add_wifi(request):
             #add message warning that failed to connect to wifi
             messages.warning(request, "Failed to connect to wifi")
             return redirect("/")
-
-
     return render(request, 'login.html')

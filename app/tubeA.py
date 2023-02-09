@@ -41,7 +41,7 @@ def process_tubeA():
     def button_callback(channel):
         print("Button was pushed!")
         state = True
-    state = False
+    state = True
     doorStatus = False
     # reading request
     x = requests.get(url, headers=headers)
@@ -80,7 +80,7 @@ def process_tubeA():
         GPIO.output(24, GPIO.LOW)
 
         # calibrating input reading to millis
-        val = float(x['Treatment Dose (in Joule)']) / 3.6
+        val = float(x['Treatment Dose (in Joule)']) / 10000.0
 
         reading1 = []
         b = 0
