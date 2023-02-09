@@ -1,5 +1,4 @@
 from django.shortcuts import render,redirect
-#import subprocess for connecting wifi and wifi names
 import subprocess
 from django.contrib import messages
 from django.http import HttpResponse,JsonResponse
@@ -29,20 +28,14 @@ def main(request):
         return render(request, 'main.html', {'error_message': 'Internet connection not available. Please check your connection and try again.'})
     if request.method=="POST":
             if request.POST.get("refresh-button")=="refresh-button":
-                print("refresh")
                 #redirect to main page
                 return redirect("/")
             elif request.POST.get("start-button")=="start-button":
-                print("start")
-                print(data['tube_name'])
                 #redirect to treatment page
                 #send a message that treatment has started
-                django_message = "Treatment has started"
-                messages.success(request, django_message)
                 if data['tube_name'] == 'A':
                     try:
                         #process_tubeA()
-                        print("Tube A")
                         return redirect("/treatment_complete/")
 
                     except:
@@ -50,7 +43,6 @@ def main(request):
                 elif data['tube_name'] == 'B':
                     try:
                         #process_tubeB()
-                        print("Tube B")
                         return redirect("/treatment_complete/")
                         
                     except:
@@ -58,7 +50,6 @@ def main(request):
                 else:
                     return render(request, 'main.html', {'error_message': 'Internet connection not available. Please check your connection and try again.'})
             elif request.POST.get("add-wifi-button")=="add-wifi-button":
-                print("add wifi")
                 #redirect to add wifi page
                 return redirect("/add_wifi/")
     return render(request, 'main.html', data)
@@ -66,34 +57,38 @@ def main(request):
 
 def treatment_complete(request):
     if request.method=="POST":
+        if request.POST.get("refresh")=="refresh":
             return redirect("/")
     return render(request, 'treatment_complete_page.html')
 
 
 def add_wifi(request):
     if request.method=="POST":
-        #call wifi name 
-        ssid= request.POST.get("wifi_name")
-        #call wifi password
-        password = request.POST.get("password")
-        wpa_supplicant_conf = f"""
-                country=US
-                ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev
-                update_config=1
-                network={{
-                ssid="{ssid}"
-                psk="{password}"
-                key_mgmt=WPA-PSK
-                }}
-        """
-        try:
-            with open("/etc/wpa_supplicant/wpa_supplicant.conf", "w") as f:
-                f.write(wpa_supplicant_conf)
-            subprocess.call(["wpa_cli", "-i", "wlan0", "reconfigure"])
-            subprocess.call(["dhclient", "wlan0"])
-            return redirect("/")
-        except:
-            #add message warning that failed to connect to wifi
-            messages.warning(request, "Failed to connect to wifi")
+        if request.POST.get("Connect")=="Connect":
+            #call wifi name 
+            ssid= request.POST.get("wifi_name")
+            #call wifi password
+            password = request.POST.get("password")
+            wpa_supplicant_conf = f"""
+                    country=US
+                    ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev
+                    update_config=1
+                    network={{
+                    ssid="{ssid}"
+                    psk="{password}"
+                    key_mgmt=WPA-PSK
+                    }}
+            """
+            try:
+                with open("/etc/wpa_supplicant/wpa_supplicant.conf", "w") as f:
+                    f.write(wpa_supplicant_conf)
+                subprocess.call(["wpa_cli", "-i", "wlan0", "reconfigure"])
+                subprocess.call(["dhclient", "wlan0"])
+                return redirect("/")
+            except:
+                #add message warning that failed to connect to wifi
+                messages.warning(request, "Failed to connect to wifi")
+                return redirect("/")
+        elif request.POST.get("Reload")=="Reload":
             return redirect("/")
     return render(request, 'login.html')

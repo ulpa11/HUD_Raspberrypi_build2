@@ -2,6 +2,9 @@
 <html>
   <head>
     <style>
+      h1,h2,h3,h4,h5,h6,p,span,body,button {
+        font-family: 'Inter', sans-serif;
+      }
       .container {
         background-image: url("{% static 'background.png' %}");
         background-size: cover;
@@ -11,7 +14,7 @@
         position: relative;
       }
       .white-box {
-        width: 40%;
+        width: 50%;
         margin: auto;
         background-color: white;
         border-radius: 10px;
@@ -24,6 +27,9 @@
         position: absolute;
         top: 40px;
         right: 40px;
+        font-size: 20px;
+        height: 50px;
+        width: 200px;
         background-color: gray;
         color: white;
         padding: 10px 20px;
@@ -47,62 +53,113 @@
         font-size: 20px;
         margin-bottom: 20px;
       }
-      .buttons { 
+      .buttons {
         margin-top: 2%;
+        /* make button align each other */
+        
+      }
+      .d-flex {
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
+        width: 100%;
+        gap: 24px;
+      }
+      .action-buttons {
+        display: flex;
+        width: 100%;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 24px;
+
       }
       #refresh-button,
-      #start-button { 
+      #start-button {
         padding: 2px;
         font-size: 20px;
-        width:200px;
-        height:50px;
+        width: 300px;
+        height: 60px;
         border-radius: 10px;
         cursor: pointer;
       }
       #refresh-button {
         background-color: blue;
         color: white;
-        margin-right: 30px;
+
       }
       #start-button {
         background-color: green;
         color: white;
+  
       }
       @media (max-width: 600px) {
         .white-box {
           width: 80%;
         }
       }
-      <link rel="stylesheet" href="{% static 'index.css' %}">
     </style>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
   </head>
   <body>
     <div class="container">
       <form method="POST">
-        {% csrf_token %}
-        <button class="add-wifi-button" name="add-wifi-button" value="add-wifi-button">Add Wi-Fi</button>
+       {% csrf_token %}
+      <button
+        class="add-wifi-button"
+        name="add-wifi-button"
+        value="add-wifi-button"
+      >
+        Add Wi-Fi
+      </button>
       </form>
       <div class="white-box">
         <img src="{% static 'logo.png' %}" class="logo" />
-          <div class="patient-details">
+        <div class="patient-details">
+          <div class="d-flex">
             <h3>Patient Name</h3>
-            <p>patient_name</p>
-              <h3>Tube Type</h3>
-              <p> tube_name </p>
-              <h3>Dose(Unit)</h3>
-              <p>treatment_dose</p>
+            <p>{{patient_name}}</p>
           </div>
-          <div class="buttons">
-              <form method="POST"> 
-                {% csrf_token %}
-                <button id="refresh-button" name="refresh-button" value="refresh-button">Refresh</button>
-                <button id="start-button" name="start-button" value="start-button">Start</button>
-              </form>
-            </div>
+          <div class="d-flex">
+            <h3>Tube Type</h3>
+            <p>{{tube_name}}</p>
+          </div>
+          <div class="d-flex">
+            <h3>Dose(Unit)</h3>
+            <p>{{treatment_dose}}</p>
+          </div>
         </div>
+        <div class="buttons">
+          <form class="action-buttons" method="POST">
+            {% csrf_token %}
+            <button
+              id="refresh-button"
+              name="refresh-button"
+              value="refresh-button"
+            >
+              Refresh
+            </button>
+            <button
+              id="start-button"
+              name="start-button"
+              value="start-button"
+            >
+              Start
+            </button>
+          </form>
+        </div>
+      </div>
     </div>
-    </div>
-    </body>
-    </html>
-
-
+  <script>
+  setTimeout(function () {
+    window.location.href = "/";
+  }, 30000);
+</script>
+  </body>
+</html>

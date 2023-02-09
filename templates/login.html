@@ -60,22 +60,26 @@
 </style>
 
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"> 
-<script src="{% static 'index.js' %}"></script>
-  <link rel="stylesheet" href="{% static 'index.css' %}">
+  <script src="{% static "index.js" %}"></script>
+  <link rel="stylesheet" href="{% static "index.css" %}">
   </head>
   <body>
   
   <div class="simple-keyboard">
     <div class="container">
       <div>
-        <button class="addWifi" >Add Wifi</button>
+        <form method="POST">
+        {% csrf_token %}
+        <button class="addWifi" name="Reload" value="Reload">Reload</button>
+        </form>
       </div>
       <div  class="white-box">
         <img src="{% static 'logo.png' %}" class="logo" />
         <form method="POST">
-          <input class="use-keyboard-input" type="text" id="wifi_name" name="wifi_name" placeholder="WIFI Name" />
-          <input class="use-keyboard-input" type="password" id="password-field"  name="password" placeholder="Password" />
-          <button class="login-button">Connect</button>
+          {% csrf_token %}
+          <input class="use-keyboard-input" type="text" id="wifi_name" name="wifi_name"  placeholder="WIFI Name" />
+          <input class="use-keyboard-input" type="text" id="password-field"  name="password"  placeholder="Password" />
+          <button class="login-button" name="Connect" value="Connect">Connect</button>
         </form>
       </div>
     </div>

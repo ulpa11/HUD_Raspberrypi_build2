@@ -1,34 +1,138 @@
 {% load static %}
-<!DOCTYPE html> 
 <html>
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title></title>
-        <meta name="description" content="">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <script src="{% static 'index.js' %}"></script>
-        <link rel="stylesheet" href="{% static 'index.css' %}">
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+  <head>
+    <style>
+      h1,h2,h3,h4,h5,h6,p,span,body,button {
+        font-family: 'Inter', sans-serif;
+      }
+      .container {
+        background-image: url("{% static 'background.png' %}");
+        background-size: cover;
+        display: flex;
+        align-items: center;
+        height: 100vh;
+        position: relative;
+      }
+      .white-box {
+        width: 50%;
+        margin: auto;
+        background-color: white;
+        border-radius: 10px;
+        padding: 50px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+      .add-wifi-button {
+        position: absolute;
+        top: 40px;
+        right: 40px;
+        font-size: 20px;
+        height: 50px;
+        width: 200px;
+        background-color: gray;
+        color: white;
+        padding: 10px 20px;
+        border-radius: 10px;
+        cursor: pointer;
+      }
+      .logo {
+        width: 90%;
+        height: auto;
+      }
+      .patient-details {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-top: 20px;
+      }
+      .patient-details h3 {
+        margin-bottom: 10px;
+      }
+      .patient-details p {
+        font-size: 20px;
+        margin-bottom: 20px;
+      }
+      .buttons {
+        margin-top: 2%;
+        /* make button align each other */
 
-    </head>
-    <body> 
-        <div class="container-fluid h-100">
-            <div class="row h-100 align-items-center">
-                <div class="col-12 text-center">
-                    <img class="backimg img-fluid" src="{% static 'background.png' %}">
-                    <div class="innerbox">
-                        <div class="logo">
-                            <img src="{% static 'logo.png' %}" class="img-fluid" />
-                        </div>    
-                        <div class="middle text-center"><h1>Your Treatment is Completed</h1></div>
-                        <form method="POST">
-                            <button id="fourthbtn" class="btn btn-lg btn-block btn-primary" type="button">Refresh</button>
-                        </form>
-                    </div>
-                </div>
-            </div>
+      }
+      .d-flex {
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
+        width: 100%;
+        gap: 24px;
+      }
+      .action-buttons {
+        display: flex;
+        width: 100%;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 24px;
+
+      }
+      #refresh-button,
+      #start-button {
+        padding: 2px;
+        font-size: 20px;
+        width: 300px;
+        height: 60px;
+        border-radius: 10px;
+        cursor: pointer;
+      }
+      #refresh-button {
+        background-color: blue;
+        color: white;
+
+      }
+      #start-button {
+        background-color: green;
+        color: white;
+
+      }
+      @media (max-width: 600px) {
+        .white-box {
+          width: 80%;
+        }
+      }
+    </style>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+  </head>
+  <body>
+    <div class="container">
+      <div class="white-box">
+        <img src="{% static 'logo.png' %}" class="logo" />
+        <div class="Text">
+          <h1>Your Treatment is Completed</h1>
         </div>
-        <script src="" async defer></script>
-    </body>
+        <div class="buttons">
+          <form  method="POST">
+              {% csrf_token %}
+            <button
+              id="refresh-button"
+              name="refresh"
+              value="refresh"
+            >
+              Refresh
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+<script>
+  setTimeout(function () {
+    window.location.href = "/";
+  }, 30000);
+</script>
+  </body>
 </html>
