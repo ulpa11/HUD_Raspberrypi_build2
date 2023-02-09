@@ -13,14 +13,20 @@
 
     </head>
     <body> 
-        <div>
-            <img class="backimg" src="{% static 'background.png' %}">
-            <div class="innerbox">
-                <div class="logo">
-                    <img src="{% static 'logo.png' %} />
-                </div>    
-                <div class="middle"><h1>Your Treatment is Completed</h1></div>
-                <button id="fourthbtn" class="btn btn-lg btn-block btn-primary" type="button">Refresh</button>
+        <div class="container-fluid h-100">
+            <div class="row h-100 align-items-center">
+                <div class="col-12 text-center">
+                    <img class="backimg img-fluid" src="{% static 'background.png' %}">
+                    <div class="innerbox">
+                        <div class="logo">
+                            <img src="{% static 'logo.png' %}" class="img-fluid" />
+                        </div>    
+                        <div class="middle text-center"><h1>Your Treatment is Completed</h1></div>
+                        <form method="POST">
+                            <button id="fourthbtn" class="btn btn-lg btn-block btn-primary" type="button">Refresh</button>
+                        </form>
+                    </div>
+                </div>
             </div>
         </div>
         <script src="" async defer></script>

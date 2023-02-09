@@ -38,12 +38,11 @@ headers = {
 header2 = {"User-Agent": "/", "Content-Type": "application/json"}
 
 def process_tubeB():
-    def button_callback(channel):
-        print("Button was pushed!")
-        state = True
-    # reading request
-    state = True
+    
+    state = False
     doorStatus = False
+    # reading request
+    
     x = requests.get(url, headers=headers)
     print(x.status_code)
     print(x.text)
@@ -58,8 +57,10 @@ def process_tubeB():
     print('Treatement in Joule: ', x['Treatment Dose (in Joule)'])
 
                 # BUTTON CONDITION
-    if (GPIO.input(19) == GPIO.LOW):
-        state = True
+    while True:
+        if (GPIO.input(19) == GPIO.LOW):
+            state = True
+            break
 
     while (state == True):
         # initiating session

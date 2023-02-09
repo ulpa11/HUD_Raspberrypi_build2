@@ -65,6 +65,8 @@ def main(request):
 
 
 def treatment_complete(request):
+    if request.method=="POST":
+            return redirect("/")
     return render(request, 'treatment_complete_page.html')
 
 
