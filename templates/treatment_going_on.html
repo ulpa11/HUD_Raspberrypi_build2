@@ -57,6 +57,7 @@
       .buttons {
         margin-top: 2%;
         /* make button align each other */
+
       }
       .d-flex {
         display: flex;
@@ -91,7 +92,7 @@
       #start-button {
         background-color: green;
         color: white;
-  
+
       }
       @media (max-width: 600px) {
         .white-box {
@@ -106,64 +107,15 @@
       href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
       rel="stylesheet"
     />
+
   </head>
   <body>
     <div class="container">
-      <form method="POST">
-        {% csrf_token %}
-        <button
-          class="add-wifi-button"
-          name="add-wifi-button"
-          value="add-wifi-button"
-        >
-          Add Wi-Fi
-        </button>
-      </form>
       <div class="white-box">
         <img src="{% static 'logo.png' %}" class="logo" />
-        <div class="patient-details">
-          <div class="d-flex">
-            <h3>Patient Name</h3>
-            <p>{{patient_name}}</p>
-          </div>
-          <div class="d-flex">
-            <h3>Tube Type</h3>
-            <p>{{tube_name}}</p>
-          </div>
-          <div class="d-flex">
-            <h3>Dose(Unit)</h3>
-            <p>{{treatment_dose}}</p>
-          </div>
+        <div class="Text">
+          <h1>Your Treatment is going on</h1>
         </div>
-        <div class="buttons">
-          <form class="action-buttons" method="POST">
-            {% csrf_token %}
-            <button
-              id="refresh-button"
-              name="refresh-button"
-              value="refresh-button"
-            >
-              Refresh
-            </button>
-            <button
-              id="start-button"
-              name="start-button"
-              value="start-button"
-            >
-              Start
-            </button>
-          </form>
-          <div id="loading" style="display: none;">
-            <h1>Your treatment is going on</h1>
-          </div>
-        </div>
-      </div>
     </div>
-  <script>
-    document.getElementById("start-button").addEventListener("click", function () {
-      document.getElementById("loading").style.display = "block";
-    });
-  </script>
-</body>
-
+  </body>
 </html>

@@ -10,7 +10,7 @@ import subprocess
 
 # Create your views here.
 def main(request):
-    #Make a GET request to the API
+    # Make a GET request to the API
     url = 'https://cyberimpulses.com/MVRC_Phototherapy_Booth/process.php?action=patient_tube&user_id=1'
     headers = {
         "User-Agent": "Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101 Firefox/60.0",
@@ -23,39 +23,46 @@ def main(request):
             'tube_name': str(data['Tube Name']), 
             'treatment_dose': str(data['Treatment Dose (in Joule)']),
         }
-        
     except:
         return render(request, 'main.html', {'error_message': 'Internet connection not available. Please check your connection and try again.'})
-    if request.method=="POST":
-            if request.POST.get("refresh-button")=="refresh-button":
-                #redirect to main page
-                return redirect("/")
-            elif request.POST.get("start-button")=="start-button":
-                #redirect to treatment page
-                #send a message that treatment has started
+    
+    if request.method == "POST":
+        if request.POST.get("refresh-button") == "refresh-button":
+            # redirect to main page
+            return redirect("/")
+        elif request.POST.get("start-button") == "start-button":
+            # redirect to treatment page
+            # send a message that treatment has started
+            try:
+                data['overlay_message'] = "Treatment in progress, please wait..."
                 if data['tube_name'] == 'A':
-                        try:
-                            data['overlay_message'] = "Treatment in progress, please wait..."
-                            #process_tubeA()
-                            return redirect("/treatment_complete/")
-                        except:
-                            return render(request, 'main.html', {'error_message': 'Internet connection not available. Please check your connection and try again.'})
+                    return redirect("/treatment_going_on_A/")
                 elif data['tube_name'] == 'B':
-                    try:
-                        data['overlay_message'] = "Treatment in progress, please wait..."
-                        #process_tubeB()
-                        return redirect("/treatment_complete/")
-                        
-                    except:
-                        return render(request, 'main.html', {'error_message': 'Internet connection not available. Please check your connection and try again.'})
-                else:
-                    return render(request, 'main.html', {'error_message': 'Internet connection not available. Please check your connection and try again.'})
-            elif request.POST.get("add-wifi-button")=="add-wifi-button":
-                #redirect to add wifi page
-                print("hii")
-                return redirect("/add_wifi/")
+                    return redirect("/treatment_going_on_B/")
+            except:
+                return render(request, 'main.html', {'error_message': 'Internet connection not available. Please check your connection and try again.'})
+        elif request.POST.get("add-wifi-button") == "add-wifi-button":
+            # redirect to add wifi page
+            return redirect("/add_wifi/")
     return render(request, 'main.html', data)
 
+
+def treatment_going_on_A(request):
+    try:
+        #put a delay of 30 seconds
+        #process_tubeA()
+        return redirect("/treatment_complete/")
+    except:
+        return render(request, 'treatment_going_on.html', {'error_message': 'Internet connection not available. Please check your connection and try again.'})
+    return render(request, 'treatment_going_on.html')
+
+def treatment_going_on_B(request):
+    try:
+        #process_tubeB()
+        return redirect("/treatment_complete/")
+    except:
+        return render(request, 'treatment_going_on.html', {'error_message': 'Internet connection not available. Please check your connection and try again.'})
+    return render(request, 'treatment_going_on.html')
 
 
 def treatment_complete(request):
