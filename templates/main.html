@@ -109,16 +109,18 @@
   </head>
   <body>
     <div class="container">
-      <form method="POST">
-        {% csrf_token %}
-        <button
-          class="add-wifi-button"
-          name="add-wifi-button"
-          value="add-wifi-button"
-        >
-          Add Wi-Fi
-        </button>
-      </form>
+      {% if not treatment_ongoing %}
+        <form method="POST">
+          {% csrf_token %}
+          <button
+            class="add-wifi-button"
+            name="add-wifi-button"
+            value="add-wifi-button"
+          >
+            Add Wi-Fi
+          </button>
+        </form>
+      {% endif %}
       <div class="white-box">
         <img src="{% static 'logo.png' %}" class="logo" />
         <div class="patient-details">
@@ -136,15 +138,20 @@
           </div>
         </div>
         <div class="buttons">
+          {% if not treatment_ongoing %}
+            <form class="action-buttons" method="POST">
+              {% csrf_token %}
+              <button
+                id="refresh-button"
+                name="refresh-button"
+                value="refresh-button"
+              >
+                Refresh
+              </button>
+            </form>
+          {% endif %}
           <form class="action-buttons" method="POST">
             {% csrf_token %}
-            <button
-              id="refresh-button"
-              name="refresh-button"
-              value="refresh-button"
-            >
-              Refresh
-            </button>
             <button
               id="start-button"
               name="start-button"

@@ -35,6 +35,7 @@ def main(request):
             # send a message that treatment has started
             try:
                 data['overlay_message'] = "Treatment in progress, please wait..."
+                data['treatment_ongoing'] = True
                 if data['tube_name'] == 'A':
                     return redirect("/treatment_going_on_A/")
                 elif data['tube_name'] == 'B':
@@ -44,25 +45,20 @@ def main(request):
         elif request.POST.get("add-wifi-button") == "add-wifi-button":
             # redirect to add wifi page
             return redirect("/add_wifi/")
+    else:
+        data['treatment_ongoing'] = False
     return render(request, 'main.html', data)
 
 
 def treatment_going_on_A(request):
-    try:
-        #put a delay of 30 seconds
-        process_tubeA()
-        return redirect("/treatment_complete/")
-    except:
-        return render(request, 'treatment_going_on.html', {'error_message': 'Internet connection not available. Please check your connection and try again.'})
-    return render(request, 'treatment_going_on.html')
+    process_tubeA()
+    redirect("/treatment_complete/")
 
 def treatment_going_on_B(request):
-    try:
-        process_tubeB()
-        return redirect("/treatment_complete/")
-    except:
-        return render(request, 'treatment_going_on.html', {'error_message': 'Internet connection not available. Please check your connection and try again.'})
-    return render(request, 'treatment_going_on.html')
+    process_tubeB()
+    redirect("/treatment_complete/")
+
+
 
 
 def treatment_complete(request):
