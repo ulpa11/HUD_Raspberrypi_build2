@@ -4,13 +4,14 @@ from django.contrib import messages
 from django.http import HttpResponse,JsonResponse
 import requests
 import json
-#from .tubeA import process_tubeA
-#from .tubeB import process_tubeB
+from .tubeA import process_tubeA
+from .tubeB import process_tubeB
+from .run_for_30_seconds import run_for_30_seconds
 import subprocess
 
 # Create your views here.
 def main(request):
-    # Make a GET request to the API
+    #Make a GET request to the API
     url = 'https://cyberimpulses.com/MVRC_Phototherapy_Booth/process.php?action=patient_tube&user_id=1'
     headers = {
         "User-Agent": "Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101 Firefox/60.0",
@@ -34,15 +35,20 @@ def main(request):
                 #redirect to treatment page
                 #send a message that treatment has started
                 if data['tube_name'] == 'A':
-                    try:
-                        #process_tubeA()
-                        return redirect("/treatment_complete/")
-
-                    except:
-                        return render(request, 'main.html', {'error_message': 'Internet connection not available. Please check your connection and try again.'})
+                        try:
+                            data['overlay_message'] = "Treatment in progress, please wait..."
+                            run_for_30_seconds()
+                            process_tubeA()
+                            print("hii")
+                            return redirect("/treatment_complete/")
+                        except:
+                            return render(request, 'main.html', {'error_message': 'Internet connection not available. Please check your connection and try again.'})
                 elif data['tube_name'] == 'B':
                     try:
-                        #process_tubeB()
+                        data['overlay_message'] = "Treatment in progress, please wait..."
+                        process_tubeB()
+                        run_for_30_seconds()
+                        print("hii")
                         return redirect("/treatment_complete/")
                         
                     except:
@@ -51,8 +57,10 @@ def main(request):
                     return render(request, 'main.html', {'error_message': 'Internet connection not available. Please check your connection and try again.'})
             elif request.POST.get("add-wifi-button")=="add-wifi-button":
                 #redirect to add wifi page
+                print("hii")
                 return redirect("/add_wifi/")
     return render(request, 'main.html', data)
+
 
 
 def treatment_complete(request):

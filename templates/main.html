@@ -110,14 +110,14 @@
   <body>
     <div class="container">
       <form method="POST">
-       {% csrf_token %}
-      <button
-        class="add-wifi-button"
-        name="add-wifi-button"
-        value="add-wifi-button"
-      >
-        Add Wi-Fi
-      </button>
+        {% csrf_token %}
+        <button
+          class="add-wifi-button"
+          name="add-wifi-button"
+          value="add-wifi-button"
+        >
+          Add Wi-Fi
+        </button>
       </form>
       <div class="white-box">
         <img src="{% static 'logo.png' %}" class="logo" />
@@ -153,13 +153,17 @@
               Start
             </button>
           </form>
+          <div id="loading" style="display: none;">
+            <h1>Your treatment is going on</h1>
+          </div>
         </div>
       </div>
     </div>
   <script>
-  setTimeout(function () {
-    window.location.href = "/";
-  }, 30000);
-</script>
-  </body>
+    document.getElementById("start-button").addEventListener("click", function () {
+      document.getElementById("loading").style.display = "block";
+    });
+  </script>
+</body>
+
 </html>
