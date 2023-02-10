@@ -4,8 +4,8 @@ from django.contrib import messages
 from django.http import HttpResponse,JsonResponse
 import requests
 import json
-#from .tubeA import process_tubeA
-#from .tubeB import process_tubeB
+from .tubeA import process_tubeA
+from .tubeB import process_tubeB
 import subprocess
 
 # Create your views here.
@@ -50,7 +50,7 @@ def main(request):
 def treatment_going_on_A(request):
     try:
         #put a delay of 30 seconds
-        #process_tubeA()
+        process_tubeA()
         return redirect("/treatment_complete/")
     except:
         return render(request, 'treatment_going_on.html', {'error_message': 'Internet connection not available. Please check your connection and try again.'})
@@ -58,7 +58,7 @@ def treatment_going_on_A(request):
 
 def treatment_going_on_B(request):
     try:
-        #process_tubeB()
+        process_tubeB()
         return redirect("/treatment_complete/")
     except:
         return render(request, 'treatment_going_on.html', {'error_message': 'Internet connection not available. Please check your connection and try again.'})
