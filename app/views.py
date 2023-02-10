@@ -4,9 +4,8 @@ from django.contrib import messages
 from django.http import HttpResponse,JsonResponse
 import requests
 import json
-from .tubeA import process_tubeA
-from .tubeB import process_tubeB
-from .run_for_30_seconds import run_for_30_seconds
+#from .tubeA import process_tubeA
+#from .tubeB import process_tubeB
 import subprocess
 
 # Create your views here.
@@ -37,18 +36,14 @@ def main(request):
                 if data['tube_name'] == 'A':
                         try:
                             data['overlay_message'] = "Treatment in progress, please wait..."
-                            run_for_30_seconds()
-                            process_tubeA()
-                            print("hii")
+                            #process_tubeA()
                             return redirect("/treatment_complete/")
                         except:
                             return render(request, 'main.html', {'error_message': 'Internet connection not available. Please check your connection and try again.'})
                 elif data['tube_name'] == 'B':
                     try:
                         data['overlay_message'] = "Treatment in progress, please wait..."
-                        process_tubeB()
-                        run_for_30_seconds()
-                        print("hii")
+                        #process_tubeB()
                         return redirect("/treatment_complete/")
                         
                     except:
